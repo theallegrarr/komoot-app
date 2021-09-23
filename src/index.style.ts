@@ -59,6 +59,30 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: row;
   }
+  .loc-form {
+      position: fixed;
+      right: 0;
+      z-index: 19;
+      background-color: white;
+      display: flex;
+      flex-flow: wrap;
+      padding: 5px;
+      align-items: center;
+      max-width: 100vw;
+
+      p {
+        font-style: italic;
+      }
+      input {
+        border-radius: 5px;
+      }
+      button {
+        max-height: 30px;
+        border-radius: 5px;
+        color: white;
+        background-color: lightblue;
+      }
+  }
 `
 
 export default GlobalStyle

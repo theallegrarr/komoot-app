@@ -1,16 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Paths from './components/paths/index'
 import MapArea from './components/map';
+import UpdateLocation from './components/map/utils/UpdateLocation';
+
+export type Coords = {
+  lng: number,
+  lat: number
+}
 
 function App() {
-  const [points, setPoints] = useState<any[]>([])
+  const [location, setLocation] = useState<Coords>({
+    lng: -74.5,
+    lat: 40
+  })
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
+      console.log(pos)
+      const crd = pos.coords
+      setLocation({
+        lng: crd.longitude,
+        lat: crd.latitude
+      })
+    })
+  }, [])
+
   return (
     <div className="app">
       <Paths />
       <MapArea
-        points={points}
-        setPoints={setPoints}
+        location={location}
+      />
+      <UpdateLocation
+        location={location}
+        setLocation={setLocation}
       />
     </div>
   );

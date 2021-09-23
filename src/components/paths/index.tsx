@@ -2,7 +2,6 @@ import Container from './index.style'
 
 const Paths = () => {
 
-
 	return(
 		<Container>
 			<div>

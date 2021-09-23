@@ -7,13 +7,13 @@ import Container from './index.style'
 
 import _trash from '../../assets/icons8-trash.svg'
 import menu from '../../assets/icons8-menu.svg'
+import { Coords } from "../../App";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 type Props = {
-  points: any[],
-  setPoints(arg: any[]): void
+  location: Coords
 }
-function MapboxMap({ points, setPoints }: Props) {
+function MapboxMap({ location }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [map, setMap] = useState<mapboxgl.Map>();
 
@@ -34,14 +34,13 @@ function MapboxMap({ points, setPoints }: Props) {
     const mapboxMap = new mapboxgl.Map({
       container: node,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [-74.5, 40],
+      center: [location.lng, location.lat],
       zoom: 9,
     });
 
 
     mapboxMap.on('click', (e: MapMouseEvent) => {
       paths.push([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
-      setPoints(paths)
 
       // add marker
       const count = document.getElementsByClassName('marker').length
@@ -129,7 +128,7 @@ function MapboxMap({ points, setPoints }: Props) {
     return () => {
       mapboxMap.remove();
     };
-  }, [setMap, setPoints]);
+  }, [setMap, location]);
 
     return <Container>
       <Map mapNode={mapNode} />
