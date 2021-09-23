@@ -39,7 +39,7 @@ function MapboxMap({ location }: Props) {
     });
 
 
-    mapboxMap.on('click', (e: MapMouseEvent) => {
+    mapboxMap.on('click', async (e: MapMouseEvent) => {
       paths.push([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
 
       // add marker
@@ -119,7 +119,6 @@ function MapboxMap({ location }: Props) {
       if(routeList){
         routeList[0].appendChild(pathItem)
       }
-
     });
 
     // save the map object to React.useState
@@ -128,6 +127,7 @@ function MapboxMap({ location }: Props) {
     return () => {
       mapboxMap.remove();
     };
+
   }, [setMap, location]);
 
     return <Container>

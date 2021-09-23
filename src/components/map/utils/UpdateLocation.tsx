@@ -16,7 +16,7 @@ const UpdateLocation = ({ location, setLocation }: Props) => {
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         setTemp({
             ...temp,
-            [e.currentTarget.name]: e.currentTarget.value
+            [e.currentTarget.name]: Number(e.currentTarget.value)
         })
     }
     return(
