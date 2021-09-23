@@ -2,6 +2,7 @@ import Container from './index.style'
 
 const Paths = () => {
 
+
 	return(
 		<Container>
 			<div>
@@ -13,10 +14,5 @@ const Paths = () => {
 			<button>Download Your Route</button>
 		</Container>)
 }
-
-/**
- * @todo
- * drag and drop the paths to reorder
-*/
 
 export default Paths
