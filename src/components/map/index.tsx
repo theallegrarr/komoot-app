@@ -18,9 +18,9 @@ function MapboxMap({ points, setPoints }: Props) {
   const [map, setMap] = useState<mapboxgl.Map>();
 
   const mapNode = useRef(null);
-  const node = mapNode.current;
 
   useEffect(() => {
+    const node = mapNode.current;
     const paths: any[] = []
     if (typeof window === "undefined" || node === null) return;
     const listItems = document.getElementsByClassName("path-item")
@@ -91,7 +91,8 @@ function MapboxMap({ points, setPoints }: Props) {
             }
           }
         });
-      
+
+
       // style routes
       mapboxMap.addLayer({
           'id': `route ${(count+1).toString()}`,
@@ -128,7 +129,7 @@ function MapboxMap({ points, setPoints }: Props) {
     return () => {
       mapboxMap.remove();
     };
-  }, [setPoints, node]);
+  }, [setMap, setPoints]);
 
     return <Container>
       <Map mapNode={mapNode} />
