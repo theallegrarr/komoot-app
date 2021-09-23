@@ -23,6 +23,8 @@ const Container = styled.div`
         padding-top: 15px;
         margin-top: -20px;
         margin-top: 15px;
+        overflow-y: scroll;
+        max-height: 80vh;
     }
     .path-item {
         display: flex;
@@ -47,6 +49,9 @@ const Container = styled.div`
             display: flex;
             justify-items: center;
             font-weight: 900;
+            font-size: 9pt;
+            font-weight: 100;
+
             img {
                 width: 22px;
                 margin: -2px 5px 0 0;

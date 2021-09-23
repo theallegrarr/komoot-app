@@ -23,6 +23,12 @@ function MapboxMap({ points, setPoints }: Props) {
   useEffect(() => {
     const paths: any[] = []
     if (typeof window === "undefined" || node === null) return;
+    const listItems = document.getElementsByClassName("path-item")
+    Array.from(listItems).forEach(element => {
+      if(element.parentNode){
+        element.parentNode.removeChild(element);
+      }
+    });
 
     // otherwise, create a map instance
     const mapboxMap = new mapboxgl.Map({
@@ -31,6 +37,7 @@ function MapboxMap({ points, setPoints }: Props) {
       center: [-74.5, 40],
       zoom: 9,
     });
+
 
     mapboxMap.on('click', (e: MapMouseEvent) => {
       paths.push([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
@@ -49,7 +56,7 @@ function MapboxMap({ points, setPoints }: Props) {
       const routeList = document.getElementsByTagName('ul')
 
       element.className = 'left'
-      const _text = document.createTextNode(JSON.stringify(e.lngLat.wrap().lng))
+      const _text = document.createTextNode('lon: '+JSON.stringify(e.lngLat.wrap().lng)+' lat: '+JSON.stringify(e.lngLat.wrap().lat))
       const img = document.createElement('img')
       const trash = document.createElement('img')
       trash.src = _trash
@@ -72,9 +79,41 @@ function MapboxMap({ points, setPoints }: Props) {
       
         marker.addTo(mapboxMap);
 
+      // Add line to map
+      mapboxMap.addSource(`route ${(count+1).toString()}`, {
+        'type': 'geojson',
+        'data': {
+        'type': 'Feature',
+        'properties': {},
+        'geometry': {
+        'type': 'LineString',
+        'coordinates': paths
+            }
+          }
+        });
+      
+      // style routes
+      mapboxMap.addLayer({
+          'id': `route ${(count+1).toString()}`,
+          'type': 'line',
+          'source': `route ${(count+1).toString()}`,
+          'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+          'paint': {
+          'line-color': '#888',
+          'line-width': 8
+        }
+      });
+
+
       trash.addEventListener('click', () => {
         marker.remove()
         routeList[0].removeChild(pathItem)
+        // remove line from map
+        mapboxMap.removeLayer(`route ${(count+1).toString()}`)
+        mapboxMap.removeSource(`route ${(count+1).toString()}`);
       })
 
       if(routeList){
