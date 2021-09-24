@@ -41,6 +41,7 @@ function MapboxMap({ location }: Props) {
 
     mapboxMap.on('click', async (e: MapMouseEvent) => {
       paths.push([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+      localStorage.setItem('paths', JSON.stringify(paths))
 
       // add marker
       const count = document.getElementsByClassName('marker').length

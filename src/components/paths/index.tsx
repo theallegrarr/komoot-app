@@ -1,6 +1,10 @@
 import Container from './index.style'
+import downloadGpx from './utils/download'
 
 const Paths = () => {
+	const handleClick = () => {
+		downloadGpx()
+	}
 
 	return(
 		<Container>
@@ -10,7 +14,7 @@ const Paths = () => {
 					
 				</ul>
 			</div>
-			<button>Download Your Route</button>
+			<button onClick={handleClick} >Download Your Route</button>
 		</Container>)
 }
 
