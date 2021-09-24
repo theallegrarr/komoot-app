@@ -9,6 +9,10 @@ import _trash from '../../assets/icons8-trash.svg'
 import menu from '../../assets/icons8-menu.svg'
 import { Coords } from "../../App";
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 type Props = {
   location: Coords
